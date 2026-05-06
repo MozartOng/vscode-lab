@@ -1,17 +1,21 @@
 public class OrderProcessor {
     public void printOrderSummary(Order order) {
-        // Calculate total price
+        double totalPrice = calculateTotalPrice(order);
+        printSummary(order, totalPrice);
+    }
+
+    private double calculateTotalPrice(Order order) {
         double totalPrice = 0;
         for (Item item : order.getItems()) {
             totalPrice += item.getPrice() * item.getQuantity();
         }
-
-        // Apply discount
         if (order.getCustomer().isMember()) {
             totalPrice *= 0.9;
         }
+        return totalPrice;
+    }
 
-        // Print summary
+    private void printSummary(Order order, double totalPrice) {
         System.out.println("Order Summary:");
         System.out.println("Customer: " + order.getCustomer().getName());
         System.out.println("Items:");
